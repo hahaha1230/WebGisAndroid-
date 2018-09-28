@@ -62,9 +62,9 @@
             android:value="45f6145e9841b3cf011995c37948f4de" />
 
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".DisplayMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,7 +72,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ToolsActivity"></activity>
+        <activity android:name=".ToolsActivity" />
+        <activity android:name=".CalculateDistanceActivity" />
+        <activity android:name=".WeatherSearchActivity" />
+        <activity android:name=".SearchDistrictBoundryActivity"></activity>
     </application>
 
 </manifest>

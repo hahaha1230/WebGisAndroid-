@@ -44,6 +44,10 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     private UiSettings uiSettings;
     private AMapLocationClient aMapLocationClient;
     private Marker centerMarker;
+    private double nowLatitude;
+    private double nowLongitude;
+    private boolean locationSucceed=false;
+    private String cityName;
 
     private Button nightMode;
     private Button satelliteMode;
@@ -176,31 +180,23 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R);
-        getMenuInflater().inflate(R.menu.tools,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-      switch (item.getItemId()) {
-          case R.id.toolsMenu:
-              Intent intent=new Intent(DisplayMapActivity.this,ToolsActivity.class);
-              startActivityForResult(intent,2);
-              break;
-      }
-      return true;
-    }
 
+    /**
+     * 位置发生改变事件
+     * @param aMapLocation
+     */
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation != null && aMapLocation.getErrorCode() == 0) {
             //setMapCenter(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()));
             //缩放等级
-            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            //aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
             aMap.setOnMapClickListener(this);
+            nowLatitude=aMapLocation.getLatitude();
+            nowLongitude=aMapLocation.getLongitude();
+            cityName=aMapLocation.getCity();
+            locationSucceed=true;
         } else {
             Toast.makeText(DisplayMapActivity.this, "定位失败，原因为：" +
                     aMapLocation.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -219,10 +215,32 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //getMenuInflater().inflate(R);
+        getMenuInflater().inflate(R.menu.tools,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.toolsMenu:
+                Intent intent=new Intent(DisplayMapActivity.this,ToolsActivity.class);
+                intent.putExtra("locationSucceed",locationSucceed);
+                intent.putExtra("nowLatitude",nowLatitude);
+                intent.putExtra("nowLongitude",nowLongitude);
+                intent.putExtra("cityName",cityName);
+                startActivityForResult(intent,2);
+                break;
+        }
+        return true;
+    }
+
+
     /**
      * 处理申请权限后的事件
      * @param requestCode
-
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -232,7 +250,8 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
                 if (grantResults.length>0){
                     for (int result:grantResults){
                         if (result !=PackageManager.PERMISSION_GRANTED){
-                            Toast.makeText(this,"必须同意所有的权限才能使用该功能",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this,"必须同意所有的权限才能使用该功能",
+                                    Toast.LENGTH_SHORT).show();
                             finish();
                             return;
                         }
@@ -250,8 +269,7 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
 
     /**
      * 将定位获取到的经纬度缩放到中心
-     *
-     * @param latLng
+     * * @param latLng
      */
     private void setMapCenter(LatLng latLng) {
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
