@@ -111,20 +111,25 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
         AMapLocationClientOption option = new AMapLocationClientOption();
         option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         option.setLocationCacheEnable(false);
+        option.setOnceLocation(true);
         aMapLocationClient.setLocationOption(option);
         aMapLocationClient.startLocation();
     }
 
+    /**
+     * 停止定位
+     */
     private void endLocation() {
-
+        aMapLocationClient.stopLocation();
     }
+
     /**
      * 初始化地图
      */
     private void initMap() {
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         //myLocationStyle.myLocationType(MyLocationStyle.location);
-        myLocationStyle.interval(2000);
+        myLocationStyle.interval(3000);
         aMap.setMyLocationStyle(myLocationStyle);
 
         //uiSettings.setZoomControlsEnabled(true);
@@ -217,7 +222,6 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R);
         getMenuInflater().inflate(R.menu.tools,menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -290,6 +294,7 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     protected void onDestroy() {
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        endLocation();
         aMapView.onDestroy();
     }
 
@@ -297,6 +302,7 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
+        aMapLocationClient.startLocation();
         aMapView.onResume();
     }
 
@@ -304,6 +310,7 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
+        endLocation();
         aMapView.onPause();
     }
 

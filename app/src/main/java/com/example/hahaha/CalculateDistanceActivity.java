@@ -89,12 +89,13 @@ public class CalculateDistanceActivity extends AppCompatActivity implements AMap
 
     }
 
+
     @Override
     public void onMarkerDrag(Marker marker) {
-
         distance=AMapUtils.calculateLineDistance(markerA.getPosition(),markerB.getPosition());
         displayDistance.setText("长按Marker可拖动\n两点间距离为："+distance+"m");
     }
+
 
     @Override
     public void onMarkerDragEnd(Marker marker) {

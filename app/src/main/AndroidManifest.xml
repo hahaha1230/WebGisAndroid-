@@ -75,7 +75,9 @@
         <activity android:name=".ToolsActivity" />
         <activity android:name=".CalculateDistanceActivity" />
         <activity android:name=".WeatherSearchActivity" />
-        <activity android:name=".SearchDistrictBoundryActivity"></activity>
+        <activity android:name=".SearchDistrictBoundryActivity" />
+        <activity android:name=".PoiKrywordSearchActivity" />
+        <activity android:name=".MeasureSpeedActivity"></activity>
     </application>
 
 </manifest>

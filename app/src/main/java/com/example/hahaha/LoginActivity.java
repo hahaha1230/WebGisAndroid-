@@ -32,11 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initview();
-
-
-
     }
 
     private void initview() {
@@ -125,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                     case 7:  //失败次数太多，禁用时间倒计时
                         tvLog.setTag(false);
-                    tvLog.setText("失败次数太多，请"+errString+"秒后再试");
+                        tvLog.setText("失败次数太多，请"+errString+"秒后再试");
                     break;
 
                 }
@@ -164,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                 tvLog.setText("指纹识别成功");
                 ivFinger.end(true);
             }
+
 
             @Override
             public void onAuthenticationFailed() {
