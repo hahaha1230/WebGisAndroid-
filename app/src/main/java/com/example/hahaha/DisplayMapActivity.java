@@ -131,7 +131,6 @@ public class DisplayMapActivity extends AppCompatActivity implements AMapLocatio
         //myLocationStyle.myLocationType(MyLocationStyle.location);
         myLocationStyle.interval(3000);
         aMap.setMyLocationStyle(myLocationStyle);
-
         //uiSettings.setZoomControlsEnabled(true);
         //显示指南针
         uiSettings.setCompassEnabled(true);

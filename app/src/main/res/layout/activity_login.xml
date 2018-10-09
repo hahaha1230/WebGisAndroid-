@@ -17,9 +17,19 @@
         android:id="@+id/btn_start"
         android:background="@color/colorPrimary"
         android:padding="5dp"
+        android:text="指纹验证登录"
+        android:layout_above="@+id/password_login"
+        android:layout_marginBottom="20dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password_login"
+        android:background="@color/colorPrimary"
+        android:padding="5dp"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="点击开始指纹识别"
+        android:text="密码验证登录"
         android:textColor="#FFFFFF"
         android:textSize="20sp"/>
 

@@ -45,12 +45,10 @@ public class ToolsActivity extends AppCompatActivity {
         toolsList.add(tool2);
         MapTools tool3 = new MapTools("行政区划", R.drawable.area_division);
         toolsList.add(tool3);
-        MapTools tool4 = new MapTools("坐标转换", R.drawable.transform);
+        MapTools tool4 = new MapTools("获取POI", R.drawable.poi);
         toolsList.add(tool4);
-        MapTools tool5 = new MapTools("获取POI", R.drawable.poi);
+        MapTools tool5 = new MapTools("查看速度", R.drawable.poi);
         toolsList.add(tool5);
-        MapTools tool6 = new MapTools("查看速度", R.drawable.poi);
-        toolsList.add(tool6);
     }
 
     private void initview() {
@@ -83,14 +81,14 @@ public class ToolsActivity extends AppCompatActivity {
                         Intent intent2=new Intent(ToolsActivity.this,SearchDistrictBoundryActivity.class);
                         startActivity(intent2);
                         break;
-                    case 4:
+                    case 3:
                         Intent intent4=new Intent(ToolsActivity.this,PoiKrywordSearchActivity.class);
                         intent4.putExtra("nowLatitude",nowLatitude);
                         intent4.putExtra("nowLongitude",nowLongitude);
                         intent4.putExtra("cityName",cityName);
                         startActivity(intent4);
                         break;
-                    case 5:
+                    case 4:
                         Intent intent5=new Intent(ToolsActivity.this,MeasureSpeedActivity.class);
                         intent5.putExtra("nowLatitude",nowLatitude);
                         intent5.putExtra("nowLongitude",nowLongitude);

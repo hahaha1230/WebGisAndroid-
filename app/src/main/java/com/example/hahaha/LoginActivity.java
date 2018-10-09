@@ -2,7 +2,9 @@ package com.example.hahaha;
 
 import android.animation.ObjectAnimator;
 import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     //显示提示性动画的imageview
     private FingerImageView ivFinger;
 
+    private Button passwordLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initview() {
         btnStart=(Button)findViewById(R.id.btn_start);
+        passwordLogin=(Button)findViewById(R.id.password_login);
         tvLog=(TextView)findViewById(R.id.tv_log);
         ivFinger=(FingerImageView)findViewById(R.id.iv_finger);
 
@@ -58,6 +63,17 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
+        });
+        passwordLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("/");
+                ComponentName cm = new ComponentName(
+                        "com.android.settings",
+                        "com.android.settings.ChooseLockGeneric");
+                intent.setComponent(cm);
+                startActivityForResult(intent, 2);
+            }
         });
         fingerManager=(FingerprintManager)getSystemService(Context.FINGERPRINT_SERVICE);
         keyManager=(KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE);
@@ -159,6 +175,9 @@ public class LoginActivity extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
                 tvLog.setText("指纹识别成功");
                 ivFinger.end(true);
+
+                Intent intent=new Intent(LoginActivity.this,DisplayMapActivity.class);
+                startActivity(intent);
             }
 
 
